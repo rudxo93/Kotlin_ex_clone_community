@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
 
-    private val logoutBtn by lazy { binding.logoutBtn }
+    /*private val logoutBtn by lazy { binding.logoutBtn }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +23,11 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        logoutBtn.setOnClickListener {
+        /*logoutBtn.setOnClickListener {
             auth.signOut()
             val intent = Intent(this, IntroActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP // 기존 activity를 날린다.
             startActivity(intent)
-        }
+        }*/
     }
 }
