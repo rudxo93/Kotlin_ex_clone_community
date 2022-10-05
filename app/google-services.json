@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "340077250288",
+    "project_id": "whoinlier",
+    "storage_bucket": "whoinlier.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340077250288:android:c121cdc650585ae65fa435",
+        "android_client_info": {
+          "package_name": "com.duran.mysolelife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340077250288-vabboclc0irh45qc7iqjqsscp6vh1d2i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-gsyQWdnw9YS4M-Iunn523_bIuO0FXVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340077250288-vabboclc0irh45qc7iqjqsscp6vh1d2i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
