@@ -10,8 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.duran.mysolelife.R
 
-class ContentRvAdapter(val context: Context, val items: ArrayList<ContentModel>) :
-    RecyclerView.Adapter<ContentRvAdapter.Viewholder>() {
+class ContentRvAdapter(val context: Context, val items: ArrayList<ContentModel>) : RecyclerView.Adapter<ContentRvAdapter.Viewholder>() {
+
+    // item click
+    interface  ItemClick {
+        fun onClick(view: View, position: Int)
+    }
+    // item click
+    var itemClick : ItemClick? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentRvAdapter.Viewholder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.content_rv_item, parent, false)
@@ -20,6 +26,12 @@ class ContentRvAdapter(val context: Context, val items: ArrayList<ContentModel>)
 
     override fun onBindViewHolder(holder: ContentRvAdapter.Viewholder, position: Int) {
         holder.bindItem(items[position])
+        // item click
+        if(itemClick != null) {
+            holder.itemView.setOnClickListener { v ->
+                itemClick?.onClick(v, position)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
