@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "340077250288",
+    "firebase_url": "https://whoinlier-default-rtdb.firebaseio.com",
     "project_id": "whoinlier",
     "storage_bucket": "whoinlier.appspot.com"
   },
