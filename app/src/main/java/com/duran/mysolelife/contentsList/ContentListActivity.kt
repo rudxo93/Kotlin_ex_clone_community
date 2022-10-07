@@ -87,10 +87,12 @@ class ContentListActivity : AppCompatActivity() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
+                bookmarIdList.clear()
+
                 for(dataModel in dataSnapshot.children) {
                     bookmarIdList.add(dataModel.key.toString())
                 }
-                Log.d("dddd", bookmarIdList.toString())
+                Log.d("Bookmark : ", bookmarIdList.toString())
                 rvAdapter.notifyDataSetChanged()
             }
 
