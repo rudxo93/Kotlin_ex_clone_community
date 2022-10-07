@@ -15,10 +15,17 @@ import com.duran.mysolelife.R
 import com.duran.mysolelife.utils.FBAuth
 import com.duran.mysolelife.utils.FBRef
 
-class ContentRvAdapter(val context: Context, val items: ArrayList<ContentModel>, val keyList : ArrayList<String>) : RecyclerView.Adapter<ContentRvAdapter.Viewholder>() {
+class ContentRvAdapter(val context: Context,
+                       val items: ArrayList<ContentModel>,
+                       val keyList : ArrayList<String>,
+                       val bookmarkIdList : MutableList<String>) : RecyclerView.Adapter<ContentRvAdapter.Viewholder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentRvAdapter.Viewholder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.content_rv_item, parent, false)
+
+        Log.d("asdf", keyList.toString())
+        Log.d("asdf", bookmarkIdList.toString())
+
         return Viewholder(v)
     }
 
@@ -46,11 +53,20 @@ class ContentRvAdapter(val context: Context, val items: ArrayList<ContentModel>,
             val imageViewArea = itemView.findViewById<ImageView>(R.id.imageArea)
             val bookmarkArea = itemView.findViewById<ImageView>(R.id.bookmarkArea)
 
+            if(bookmarkIdList.contains(key)) {
+                bookmarkArea.setImageResource(R.drawable.bookmark_color)
+            } else {
+                bookmarkArea.setImageResource(R.drawable.bookmark_white)
+            }
+
             bookmarkArea.setOnClickListener {
                 Log.d("ContentRvAdapter", FBAuth.getUid())
                 Toast.makeText(context, key, Toast.LENGTH_SHORT).show()
 
-                FBRef.bookmarkRef.child(FBAuth.getUid()).child(key).setValue("good")
+                FBRef.bookmarkRef
+                    .child(FBAuth.getUid()).
+                    child(key).
+                    setValue(BookmarkModel(true))
             }
 
             contentTitle.text = item.title
