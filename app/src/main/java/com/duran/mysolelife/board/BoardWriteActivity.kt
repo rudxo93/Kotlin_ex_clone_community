@@ -1,7 +1,9 @@
 package com.duran.mysolelife.board
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -20,6 +22,7 @@ class BoardWriteActivity : AppCompatActivity() {
     private val btnWrite by lazy { binding.writeBtn }
     private val evTitle by lazy { binding.titleArea }
     private val evContent by lazy { binding.contentArea }
+    private val imageBtn by lazy { binding.imageArea }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +38,6 @@ class BoardWriteActivity : AppCompatActivity() {
             Log.d(TAG, title)
             Log.d(TAG, content)
 
-            // board
-            //      - key
-            //          -boardModel(title, content, uid, time)
             FBRef.boardRef
                 .push()
                 .setValue(BoardModel(title, content, uid, time))
@@ -48,5 +48,18 @@ class BoardWriteActivity : AppCompatActivity() {
 
         }
 
+        imageBtn.setOnClickListener {
+            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+            startActivityForResult(gallery, 100)
+        }
+
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == RESULT_OK && requestCode == 100) {
+            imageBtn.setImageURI(data?.data)
+        }
+    }
+
 }
