@@ -29,6 +29,8 @@ class BoardWriteActivity : AppCompatActivity() {
     private val evContent by lazy { binding.contentArea }
     private val imageArea by lazy { binding.imageArea }
 
+    private var isImageUpload = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,7 +59,9 @@ class BoardWriteActivity : AppCompatActivity() {
 
             Toast.makeText(this, "게시글 입력 완료", Toast.LENGTH_SHORT).show()
 
-            imageUpload(key)
+            if(isImageUpload == true) {
+                imageUpload(key)
+            }
 
             finish()
 
@@ -66,6 +70,7 @@ class BoardWriteActivity : AppCompatActivity() {
         imageArea.setOnClickListener {
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, 100)
+            isImageUpload = true
         }
 
     }
