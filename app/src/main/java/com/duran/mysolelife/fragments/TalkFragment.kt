@@ -1,5 +1,6 @@
 package com.duran.mysolelife.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.duran.mysolelife.R
+import com.duran.mysolelife.board.BoardWriteActivity
 import com.duran.mysolelife.databinding.FragmentTalkBinding
 
 class TalkFragment : Fragment() {
@@ -18,6 +20,7 @@ class TalkFragment : Fragment() {
     private val tip by lazy { binding.tipTap }
     private val bookMark by lazy { binding.bookmarkTap }
     private val store by lazy { binding.storeTap }
+    private val write by lazy { binding.writeBtn }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +31,11 @@ class TalkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_talk, container, false)
+
+        write.setOnClickListener {
+            val intent = Intent(context, BoardWriteActivity::class.java)
+            startActivity(intent)
+        }
 
         home.setOnClickListener {
             it.findNavController().navigate(R.id.action_talkFragment_to_homeFragment)
