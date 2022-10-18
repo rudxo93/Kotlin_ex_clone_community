@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import java.lang.Exception
 
 class BoardInsideActivity : AppCompatActivity() {
 
@@ -31,6 +32,8 @@ class BoardInsideActivity : AppCompatActivity() {
 
     private val TAG = BoardInsideActivity::class.java.simpleName
 
+    private lateinit var key : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board_inside)
@@ -40,10 +43,9 @@ class BoardInsideActivity : AppCompatActivity() {
         }
 
         // 두번째 방법
-        val key = intent.getStringExtra("key")
-
-        getBoardData(key.toString())
-        getImageData(key.toString())
+        key = intent.getStringExtra("key").toString()
+        getBoardData(key)
+        getImageData(key)
 
     }
 
@@ -57,8 +59,11 @@ class BoardInsideActivity : AppCompatActivity() {
         alertDialog.findViewById<Button>(R.id.editBtn)?.setOnClickListener {
             Toast.makeText(this, "aa", Toast.LENGTH_SHORT).show()
         }
+
         alertDialog.findViewById<Button>(R.id.removeBtn)?.setOnClickListener {
-            Toast.makeText(this, "bb", Toast.LENGTH_SHORT).show()
+            FBRef.boardRef.child(key).removeValue()
+            Toast.makeText(this, "삭제완료", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 
@@ -87,12 +92,20 @@ class BoardInsideActivity : AppCompatActivity() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                val dataModel = dataSnapshot.getValue(BoardModel::class.java)
-                Log.d(TAG, dataModel!!.title!!)
+                try {
 
-                titleArea.text = dataModel.title
-                contentArea.text = dataModel.content
-                timeArea.text = dataModel.time
+                    val dataModel = dataSnapshot.getValue(BoardModel::class.java)
+                    Log.d(TAG, dataModel!!.title!!)
+
+                    titleArea.text = dataModel.title
+                    contentArea.text = dataModel.content
+                    timeArea.text = dataModel.time
+
+                } catch (e : Exception) {
+
+                    Log.d(TAG, "삭제완료")
+
+                }
 
             }
 
