@@ -2,6 +2,10 @@ package com.duran.mysolelife.board
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
@@ -23,6 +27,7 @@ class BoardInsideActivity : AppCompatActivity() {
     private val contentArea by lazy { binding.textArea }
     private val timeArea by lazy { binding.timeArea }
     private val imageArea by lazy { binding.getImageArea }
+    private val settingIcon by lazy { binding.boardSettingIcon }
 
     private val TAG = BoardInsideActivity::class.java.simpleName
 
@@ -30,14 +35,9 @@ class BoardInsideActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board_inside)
 
-        // 첫번째 방법
-        /*val title = intent.getStringExtra("title").toString()
-        val content = intent.getStringExtra("content").toString()
-        val time = intent.getStringExtra("time").toString()
-
-        titleArea.text = title
-        contentArea.text = content
-        timeArea.text = time*/
+        settingIcon.setOnClickListener {
+            showDialog()
+        }
 
         // 두번째 방법
         val key = intent.getStringExtra("key")
@@ -45,6 +45,21 @@ class BoardInsideActivity : AppCompatActivity() {
         getBoardData(key.toString())
         getImageData(key.toString())
 
+    }
+
+    private fun showDialog() {
+        val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog, null)
+        val mBuilder = AlertDialog.Builder(this)
+            .setView(mDialogView)
+            .setTitle("게시글 수정/삭제")
+
+        val alertDialog = mBuilder.show()
+        alertDialog.findViewById<Button>(R.id.editBtn)?.setOnClickListener {
+            Toast.makeText(this, "aa", Toast.LENGTH_SHORT).show()
+        }
+        alertDialog.findViewById<Button>(R.id.removeBtn)?.setOnClickListener {
+            Toast.makeText(this, "bb", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun getImageData(key: String) {
