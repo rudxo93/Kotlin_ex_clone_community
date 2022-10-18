@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.duran.mysolelife.auth.IntroActivity
 import com.duran.mysolelife.databinding.ActivityMainBinding
+import com.duran.mysolelife.setting.SettingActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
 
+    private val settingBtn by lazy { binding.settingBtn }
+
     /*private val logoutBtn by lazy { binding.logoutBtn }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +25,11 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         auth = Firebase.auth
+
+        settingBtn.setOnClickListener {
+            val intent = Intent(this, SettingActivity::class.java)
+            startActivity(intent)
+        }
 
         /*logoutBtn.setOnClickListener {
             auth.signOut()
