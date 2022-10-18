@@ -35,6 +35,7 @@
                     android:layout_height="40dp"
                     android:layout_margin="10dp"
                     android:src="@drawable/main_menu"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

@@ -8,10 +8,12 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.duran.mysolelife.R
 import com.duran.mysolelife.databinding.ActivityBoardInsideBinding
+import com.duran.mysolelife.utils.FBAuth
 import com.duran.mysolelife.utils.FBRef
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.DataSnapshot
@@ -105,6 +107,17 @@ class BoardInsideActivity : AppCompatActivity() {
                     titleArea.text = dataModel.title
                     contentArea.text = dataModel.content
                     timeArea.text = dataModel.time
+
+                    val myUid = FBAuth.getUid()
+                    val writerUid = dataModel.uid
+
+                    if(myUid.equals(writerUid)){
+                        Toast.makeText(baseContext, "작성자", Toast.LENGTH_SHORT).show()
+                        settingIcon.isVisible = true
+                    } else {
+                        Toast.makeText(baseContext, "작성자 아님", Toast.LENGTH_SHORT).show()
+
+                    }
 
                 } catch (e : Exception) {
 
